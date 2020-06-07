@@ -8,17 +8,17 @@
     <v-app-bar color="deep-purple" dark app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase">
-        <router-link :to="{name : 'Dashboard'}" class="white--text">
+        <router-link :to="{ name: 'Dashboard' }" class="white--text">
           <span class="font-weight-light">Getit</span>
           <span>Done</span>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <div v-if="loggedin===true" class="mx-2">
+      <div v-if="loggedin === true" class="mx-2">
         <v-avatar :key="user" color="purple accent-2" class="mr-4">
-          <router-link :to="{name: 'Profile'}">
-            <span class="white--text headline">{{getInitials}}</span>
+          <router-link :to="{ name: 'Profile' }">
+            <span class="white--text headline">{{ getInitials }}</span>
           </router-link>
         </v-avatar>
         <v-btn outlined @click="signOut">
@@ -35,16 +35,21 @@
       dark
       class="deep-purple accent-4"
     >
-      <v-col align="center" v-if="loggedin===true">
+      <v-col align="center" v-if="loggedin === true">
         <v-flex class="mt-5">
           <v-avatar size="100">
             <img :src="getAvatar" alt="Avatar" />
           </v-avatar>
-          <p class="white--text subheading mt-2">{{user.displayName}}</p>
+          <p class="white--text subheading mt-2">{{ user.displayName }}</p>
         </v-flex>
       </v-col>
       <v-list>
-        <v-list-item v-for="item in items" :key="item.title" router :to="item.route">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          router
+          :to="item.route"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -104,7 +109,7 @@ export default {
   watch: {},
   computed: {
     getInitials() {
-      if(!this.user) return null;
+      if (!this.user) return null;
       const name = this.user.displayName;
       if (name) {
         const nameArray = name.split(" ");
@@ -120,7 +125,7 @@ export default {
       }
     },
     getAvatar() {
-      if(!this.user) return '';
+      if (!this.user) return "";
       if (this.user.photoURL) return this.user.photoURL;
       return "/kakashi1.jpg";
     }

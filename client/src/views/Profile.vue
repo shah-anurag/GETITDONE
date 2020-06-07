@@ -1,23 +1,32 @@
 <template>
   <v-container class="my-5">
     <v-snackbar top v-model="snackbar.show" :color="snackbar.color">
-      {{snackbar.message}}
+      {{ snackbar.message }}
       <v-btn dark text @click="snackbar.show = false">Close</v-btn>
     </v-snackbar>
     <v-card max-width="600" class="mx-auto my-4" :loading="loading">
       <v-img :src="getAvatar" height="200px"></v-img>
-      <v-tabs v-model="tab" background-color="primary" class="elevation-2" centered grow dark>
+      <v-tabs
+        v-model="tab"
+        background-color="primary"
+        class="elevation-2"
+        centered
+        grow
+        dark
+      >
         <v-tabs-slider></v-tabs-slider>
         <v-tab href="#progress">Progress</v-tab>
         <v-tab href="#profile">Profile</v-tab>
         <v-tab-item value="progress">
           <v-card-title>
             Rank:
-            <span :class="color+'--text'" class="mx-2">{{level}}</span>
+            <span :class="color + '--text'" class="mx-2">{{ level }}</span>
             <v-tooltip right>
               <template v-slot:activator="{ on }">
                 <v-btn icon v-on="on">
-                  <v-icon color="primary" dark v-on="on">mdi-help-circle-outline</v-icon>
+                  <v-icon color="primary" dark v-on="on"
+                    >mdi-help-circle-outline</v-icon
+                  >
                 </v-btn>
               </template>
               <span>Add and complete more tasks to climb up the rank!</span>
@@ -28,12 +37,16 @@
               <v-card-text class="mx-3">
                 <v-row v-for="label in labels" :key="label.id" class="my-2">
                   <div>
-                    <span class=".body-1 grey--text mr-2">{{label.text}}:</span>
+                    <span class=".body-1 grey--text mr-2"
+                      >{{ label.text }}:</span
+                    >
                     <br />
-                    {{label.value}}
-                    <span
-                      v-if="label.text !== 'Total Tasks'"
-                    >({{total ? ((label.value * 100) / total).toFixed(1) : 0}}%)</span>
+                    {{ label.value }}
+                    <span v-if="label.text !== 'Total Tasks'"
+                      >({{
+                        total ? ((label.value * 100) / total).toFixed(1) : 0
+                      }}%)</span
+                    >
                   </div>
                 </v-row>
               </v-card-text>
@@ -41,18 +54,28 @@
             <v-col xs="12" lg="8">
               <p class="text-center subtitle-1">Ranks</p>
               <v-timeline>
-                <v-timeline-item v-for="rank in ranks" :key="rank.level" :color="rank.color" right>
-                  <span slot="opposite" :class="rank.color+'--text'">{{rank.level}}</span>
+                <v-timeline-item
+                  v-for="rank in ranks"
+                  :key="rank.level"
+                  :color="rank.color"
+                  right
+                >
+                  <span slot="opposite" :class="rank.color + '--text'">{{
+                    rank.level
+                  }}</span>
                   <v-card class="elevation-2 mr-2" :color="rank.color">
                     <v-card-text class="black--text">
                       <ul
                         v-if="rank.tasklimit"
                         style="color:white; margin-left: -1em; margin-bottom: -0.5em;"
                       >
-                        <li>Total Tasks > {{rank.tasklimit}}</li>
-                        <li>Completed Tasks > {{rank.completed}}</li>
+                        <li>Total Tasks > {{ rank.tasklimit }}</li>
+                        <li>Completed Tasks > {{ rank.completed }}</li>
                       </ul>
-                      <ul v-else style="color:white; margin-left: -1em; margin-bottom: -0.5em;">
+                      <ul
+                        v-else
+                        style="color:white; margin-left: -1em; margin-bottom: -0.5em;"
+                      >
                         <li>Total Tasks &lt; 10</li>
                         <li>Completed Tasks &lt; 50%</li>
                       </ul>
@@ -66,15 +89,32 @@
         <v-tab-item value="profile">
           <v-card-title>My Profile</v-card-title>
           <v-card-text>
-            <v-text-field v-model="form.displayName" label="Display Name"></v-text-field>
+            <v-text-field
+              v-model="form.displayName"
+              label="Display Name"
+            ></v-text-field>
             <!-- <v-text-field v-model="form.lastName" label="Last Name"></v-text-field> -->
             <v-text-field
               v-model="form.phoneNumber"
-              :rules="[v => (v.length? v[0] === '+' : true) || 'Example phone number +911234567890', v => (v.length%13) === 0] || 'Should be empty or 13 characters long'"
+              :rules="
+                [
+                  v =>
+                    (v.length ? v[0] === '+' : true) ||
+                    'Example phone number +911234567890',
+                  v => v.length % 13 === 0
+                ] || 'Should be empty or 13 characters long'
+              "
               label="Phone Number"
             ></v-text-field>
-            <v-text-field v-model="form.email" readonly label="Email Address"></v-text-field>
-            <v-text-field v-model="form.photoURL" label="Photo Url"></v-text-field>
+            <v-text-field
+              v-model="form.email"
+              readonly
+              label="Email Address"
+            ></v-text-field>
+            <v-text-field
+              v-model="form.photoURL"
+              label="Photo Url"
+            ></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn color="primary" :loading="update_loading" @click="update">

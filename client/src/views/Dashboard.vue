@@ -29,11 +29,15 @@
               label="Search Task"
               hide-details="true"
               prepend-inner-icon="search"
-              @click:clear="searchtext=''"
+              @click:clear="searchtext = ''"
             ></v-text-field>
           </div>
           <div class="filter mx-2">
-            <v-menu v-model="filter_menu" :close-on-content-click="false" offset-y>
+            <v-menu
+              v-model="filter_menu"
+              :close-on-content-click="false"
+              offset-y
+            >
               <template v-slot:activator="{ on }">
                 <v-btn small color="primary" rounded dark v-on="on">
                   <v-icon small left>mdi-filter</v-icon>Filter
@@ -47,9 +51,14 @@
                   <v-toolbar-title small>Filter</v-toolbar-title>
                 </v-toolbar>
                 <span v-for="filter in filters" :key="filter.name">
-                  <div v-if="filter.name !== 'due_date' && filter.name !== 'create_date'">
+                  <div
+                    v-if="
+                      filter.name !== 'due_date' &&
+                        filter.name !== 'create_date'
+                    "
+                  >
                     <v-card-text dense>
-                      <h2 class="title" small capitalize>{{filter.text}}</h2>
+                      <h2 class="title" small capitalize>{{ filter.text }}</h2>
                       <v-chip-group
                         v-model="filter.chosen"
                         column
@@ -62,13 +71,14 @@
                           outlined
                           v-for="(value, i) in filter.values"
                           :key="i"
-                        >{{value}}</v-chip>
+                          >{{ value }}</v-chip
+                        >
                       </v-chip-group>
                     </v-card-text>
                   </div>
                   <div v-else>
                     <v-card-text dense>
-                      <h2 class="title" small capitalize>{{filter.text}}</h2>
+                      <h2 class="title" small capitalize>{{ filter.text }}</h2>
                     </v-card-text>
                     <div class="mx-3">
                       <v-menu
@@ -91,7 +101,10 @@
                             @click:clear="filter.dates[0] = null"
                           ></v-text-field>
                         </template>
-                        <v-date-picker color="primary" v-model="filter.dates[0]"></v-date-picker>
+                        <v-date-picker
+                          color="primary"
+                          v-model="filter.dates[0]"
+                        ></v-date-picker>
                       </v-menu>
                       <v-menu
                         ref="menu"
@@ -113,7 +126,10 @@
                             @click:clear="filter.dates[1] = null"
                           ></v-text-field>
                         </template>
-                        <v-date-picker color="primary" v-model="filter.dates[1]"></v-date-picker>
+                        <v-date-picker
+                          color="primary"
+                          v-model="filter.dates[1]"
+                        ></v-date-picker>
                       </v-menu>
                     </div>
                   </div>
@@ -134,40 +150,47 @@
                 class="mr-2"
                 v-on="on"
               >
-                <v-icon left small>{{option.icon}}</v-icon>
-                <span class="caption text-lowercase">{{option.text}}</span>
-                <v-icon
-                  v-show="option.prop === sortby"
-                  small
-                  right
-                >{{ sort_in_inc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                <v-icon left small>{{ option.icon }}</v-icon>
+                <span class="caption text-lowercase">{{ option.text }}</span>
+                <v-icon v-show="option.prop === sortby" small right>{{
+                  sort_in_inc ? "mdi-chevron-up" : "mdi-chevron-down"
+                }}</v-icon>
               </v-btn>
             </template>
-            <span>{{option.hint}}</span>
+            <span>{{ option.hint }}</span>
           </v-tooltip>
         </v-row>
       </div>
       <transition name="fade" mode="out-in">
-        <div class="list" v-if="view==='list'" key="list">
-          <v-skeleton-loader :loading="loading" transition="scale-transition" type="table-tbody">
+        <div class="list" v-if="view === 'list'" key="list">
+          <v-skeleton-loader
+            :loading="loading"
+            transition="scale-transition"
+            type="table-tbody"
+          >
             <v-card v-if="tasks.length === 0">
-              <v-alert
-                type="info"
-              >You have no todo tasks. Click on 'Create new Task' for adding new tasks.</v-alert>
+              <v-alert type="info"
+                >You have no todo tasks. Click on 'Create new Task' for adding
+                new tasks.</v-alert
+              >
             </v-card>
             <draggable
               v-else
               v-bind="dragOptions"
-              @start="drag=true"
-              @end="drag=false"
+              @start="drag = true"
+              @end="drag = false"
               v-model="tasks"
             >
               <transition-group :name="!drag ? 'flip-list' : null">
-                <v-card v-for="task in getTasks" :key="task.id" :class="`pa-2 task ${task.status}`">
+                <v-card
+                  v-for="task in getTasks"
+                  :key="task.id"
+                  :class="`pa-2 task ${task.status}`"
+                >
                   <v-row wrap>
                     <v-col cols="12" xs="12" md="2" lg="2">
                       <div class="caption grey--text">Title</div>
-                      <div>{{task.title}}</div>
+                      <div>{{ task.title }}</div>
                     </v-col>
                     <v-col xs="3" md="2" lg="2">
                       <div class="caption grey--text">Start date</div>
@@ -179,47 +202,63 @@
                     </v-col>
                     <v-col xs="2" md="2" lg="2">
                       <div class="caption grey--text">Label</div>
-                      <div class="text-capitalize">{{task.label}}</div>
+                      <div class="text-capitalize">{{ task.label }}</div>
                     </v-col>
                     <v-col xs="2" md="2" lg="2">
                       <div class="right">
-                        <v-chip small :class="`${task.status} white--text caption my-2`">
-                          {{task.status}}
+                        <v-chip
+                          small
+                          :class="`${task.status} white--text caption my-2`"
+                        >
+                          {{ task.status }}
                           <v-icon
                             dark
                             small
                             v-if="task.status.toLowerCase() === 'new'"
                             right
-                          >mdi-star</v-icon>
+                            >mdi-star</v-icon
+                          >
                           <v-icon
                             dark
                             small
                             v-else-if="task.status.toLowerCase() === 'complete'"
                             right
-                          >mdi-checkbox-marked-circle</v-icon>
+                            >mdi-checkbox-marked-circle</v-icon
+                          >
                           <v-icon
                             dark
                             small
                             v-else-if="task.status.toLowerCase() === 'overdue'"
                             right
-                          >mdi-exclamation</v-icon>
+                            >mdi-exclamation</v-icon
+                          >
                           <v-icon
                             dark
                             small
                             v-else-if="task.status.toLowerCase() === 'ongoing'"
                             right
-                          >mdi-checkbox-blank-circle-outline</v-icon>
+                            >mdi-checkbox-blank-circle-outline</v-icon
+                          >
                         </v-chip>
                       </div>
                     </v-col>
                     <v-col xs="1" md="1" lg="1">
                       <v-btn icon @click="task.show = !task.show">
-                        <v-icon>{{ task.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        <v-icon>{{
+                          task.show ? "mdi-chevron-up" : "mdi-chevron-down"
+                        }}</v-icon>
                       </v-btn>
                     </v-col>
                     <v-col xs="1" md="1" lg="1">
-                      <EditTask :item="task" @edittedData="editTask(task, ...arguments)"></EditTask>
-                      <v-btn icon :loading="task.load_delete" @click="deleteTask(task)">
+                      <EditTask
+                        :item="task"
+                        @edittedData="editTask(task, ...arguments)"
+                      ></EditTask>
+                      <v-btn
+                        icon
+                        :loading="task.load_delete"
+                        @click="deleteTask(task)"
+                      >
                         <v-icon>mdi-delete</v-icon>
                       </v-btn>
                     </v-col>
@@ -227,7 +266,7 @@
                   <v-expand-transition>
                     <div v-show="task.show">
                       <v-divider></v-divider>
-                      <v-card-text>{{task.description}}</v-card-text>
+                      <v-card-text>{{ task.description }}</v-card-text>
                     </div>
                   </v-expand-transition>
                 </v-card>
@@ -235,27 +274,32 @@
             </draggable>
           </v-skeleton-loader>
         </div>
-        <div class="grid" v-else-if="view==='grid'" key="grid">
+        <div class="grid" v-else-if="view === 'grid'" key="grid">
           <v-row no-gutters>
             <v-col v-for="label in labels" :key="label">
               <v-card class="py-2" outlined>
-                <v-card-title>{{label}}</v-card-title>
+                <v-card-title>{{ label }}</v-card-title>
                 <v-card-text>
                   <draggable
                     v-bind="dragOptions"
-                    @start="drag=true"
-                    @end="drag=false"
+                    @start="drag = true"
+                    @end="drag = false"
                     v-model="tasks"
                   >
                     <transition-group :name="!drag ? 'flip-list' : null">
                       <div v-for="task in getTasks" :key="task.id">
-                        <v-card :class="`pa-4 task ${task.status}`" v-if="task.status === label">
+                        <v-card
+                          :class="`pa-4 task ${task.status}`"
+                          v-if="task.status === label"
+                        >
                           <v-row>
                             <div class="caption grey--text mr-2">Title:</div>
-                            <div>{{task.title}}</div>
+                            <div>{{ task.title }}</div>
                           </v-row>
                           <v-row>
-                            <div class="caption grey--text mr-2">Create date:</div>
+                            <div class="caption grey--text mr-2">
+                              Create date:
+                            </div>
                             <div>{{ getDate(task.create_date) }}</div>
                           </v-row>
                           <v-row>
@@ -264,22 +308,33 @@
                           </v-row>
                           <v-row>
                             <div class="caption grey--text mr-2">Label:</div>
-                            <div class="text-capitalize">{{task.label}}</div>
+                            <div class="text-capitalize">{{ task.label }}</div>
                           </v-row>
                           <v-row>
                             <v-btn icon @click="task.show = !task.show">
-                              <v-icon>{{ task.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                              <v-icon>{{
+                                task.show
+                                  ? "mdi-chevron-up"
+                                  : "mdi-chevron-down"
+                              }}</v-icon>
                             </v-btn>
                             <v-spacer />
-                            <EditTask :item="task" @edittedData="editTask(task, ...arguments)"></EditTask>
-                            <v-btn icon :loading="task.load_delete" @click="deleteTask(task)">
+                            <EditTask
+                              :item="task"
+                              @edittedData="editTask(task, ...arguments)"
+                            ></EditTask>
+                            <v-btn
+                              icon
+                              :loading="task.load_delete"
+                              @click="deleteTask(task)"
+                            >
                               <v-icon>mdi-delete</v-icon>
                             </v-btn>
                           </v-row>
                           <v-expand-transition>
                             <div v-show="task.show">
                               <v-divider></v-divider>
-                              <v-card-text>{{task.description}}</v-card-text>
+                              <v-card-text>{{ task.description }}</v-card-text>
                             </div>
                           </v-expand-transition>
                         </v-card>

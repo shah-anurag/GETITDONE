@@ -57,12 +57,14 @@
                 prepend-icon="date_range"
                 color="deep-purple"
                 :close-on-content-click="false"
-                @click="create_date=null"
+                @click="create_date = null"
               ></v-text-field>
             </template>
             <v-date-picker v-model="create_date" scrollable>
               <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menu_create_date = false">Ok</v-btn>
+              <v-btn text color="primary" @click="menu_create_date = false"
+                >Ok</v-btn
+              >
             </v-date-picker>
           </v-menu>
 
@@ -76,20 +78,26 @@
                 label="Due date"
                 prepend-icon="date_range"
                 color="deep-purple"
-                @click="due_date=null"
+                @click="due_date = null"
               ></v-text-field>
             </template>
-          <v-date-picker v-model="due_date" scrollable>
+            <v-date-picker v-model="due_date" scrollable>
               <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menu_due_date = false">Ok</v-btn>
+              <v-btn text color="primary" @click="menu_due_date = false"
+                >Ok</v-btn
+              >
             </v-date-picker>
           </v-menu>
 
           <v-spacer></v-spacer>
 
-          <v-btn @click="submit" class="success mr-4 mt-3" :loading="loading">Edit Task</v-btn>
+          <v-btn @click="submit" class="success mr-4 mt-3" :loading="loading"
+            >Edit Task</v-btn
+          >
           <!-- <v-spacer /> -->
-          <v-btn right @click="dialog=false" class="primary mx-0 mt-3">Cancel</v-btn>
+          <v-btn right @click="dialog = false" class="primary mx-0 mt-3"
+            >Cancel</v-btn
+          >
         </v-form>
       </v-card-text>
     </v-card>
@@ -108,7 +116,7 @@ const client = axios.create({
 
 export default {
   props: {
-    item: Object,
+    item: Object
   },
   data() {
     return {
@@ -184,13 +192,10 @@ export default {
       this.putData();
     },
     formattedDate(date) {
-      const formatted_date = date
-        ? format(parseISO(date), "do MMM yyyy")
-        : "";
+      const formatted_date = date ? format(parseISO(date), "do MMM yyyy") : "";
       return formatted_date;
     }
   },
-  computed: {
-  }
+  computed: {}
 };
 </script>

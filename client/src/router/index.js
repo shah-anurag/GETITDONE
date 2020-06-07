@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "@/store"
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -52,19 +52,16 @@ router.beforeEach((to, from, next) => {
     const user = store.user;
     if (user) {
       next();
-    }
-    else {
+    } else {
       next({
         path: "/login",
         query: { redirect: to.fullPath }
       });
     }
-  }
-  else {
+  } else {
     console.log("no auth meta tag defined");
     next();
   }
 });
-
 
 export default router;

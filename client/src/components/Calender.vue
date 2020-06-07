@@ -4,7 +4,9 @@
       <v-col>
         <v-sheet height="64">
           <v-toolbar flat color="white">
-            <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">Today</v-btn>
+            <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday"
+              >Today</v-btn
+            >
             <v-btn fab text small color="grey darken-2" @click="prev">
               <v-icon small>mdi-chevron-left</v-icon>
             </v-btn>
@@ -14,7 +16,11 @@
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <div class="filter mx-2">
-              <v-menu v-model="filter_menu" :close-on-content-click="false" offset-y>
+              <v-menu
+                v-model="filter_menu"
+                :close-on-content-click="false"
+                offset-y
+              >
                 <template v-slot:activator="{ on }">
                   <v-btn small color="primary" rounded dark v-on="on">
                     <v-icon small left>mdi-filter</v-icon>Filter
@@ -28,9 +34,16 @@
                     <v-toolbar-title small>Filter</v-toolbar-title>
                   </v-toolbar>
                   <span v-for="filter in filters" :key="filter.name">
-                    <div v-if="filter.name !== 'due_date' && filter.name !== 'create_date'">
+                    <div
+                      v-if="
+                        filter.name !== 'due_date' &&
+                          filter.name !== 'create_date'
+                      "
+                    >
                       <v-card-text dense>
-                        <h2 class="title" small capitalize>{{filter.text}}</h2>
+                        <h2 class="title" small capitalize>
+                          {{ filter.text }}
+                        </h2>
                         <v-chip-group
                           v-model="filter.chosen"
                           column
@@ -43,13 +56,16 @@
                             outlined
                             v-for="(value, i) in filter.values"
                             :key="i"
-                          >{{value}}</v-chip>
+                            >{{ value }}</v-chip
+                          >
                         </v-chip-group>
                       </v-card-text>
                     </div>
                     <div v-else>
                       <v-card-text dense>
-                        <h2 class="title" small capitalize>{{filter.text}}</h2>
+                        <h2 class="title" small capitalize>
+                          {{ filter.text }}
+                        </h2>
                       </v-card-text>
                       <div class="mx-3">
                         <v-menu
@@ -72,7 +88,10 @@
                               @click:clear="filter.dates[0] = null"
                             ></v-text-field>
                           </template>
-                          <v-date-picker color="primary" v-model="filter.dates[0]"></v-date-picker>
+                          <v-date-picker
+                            color="primary"
+                            v-model="filter.dates[0]"
+                          ></v-date-picker>
                         </v-menu>
                         <v-menu
                           ref="menu"
@@ -94,7 +113,10 @@
                               @click:clear="filter.dates[1] = null"
                             ></v-text-field>
                           </template>
-                          <v-date-picker color="primary" v-model="filter.dates[1]"></v-date-picker>
+                          <v-date-picker
+                            color="primary"
+                            v-model="filter.dates[1]"
+                          ></v-date-picker>
                         </v-menu>
                       </div>
                     </div>
@@ -159,7 +181,11 @@
                   :item="selectedEvent"
                   @edittedData="editTask(selectedEvent, ...arguments)"
                 ></EditTask>
-                <v-btn icon :loading="selectedEvent.load_delete" @click="deleteTask(selectedEvent)">
+                <v-btn
+                  icon
+                  :loading="selectedEvent.load_delete"
+                  @click="deleteTask(selectedEvent)"
+                >
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
                 <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
@@ -173,13 +199,15 @@
                       dark
                       :color="getEventColor(selectedEvent)"
                       class="mr-2"
-                    >{{getStatus(selectedEvent)}}</v-chip>
+                      >{{ getStatus(selectedEvent) }}</v-chip
+                    >
                     <v-chip
                       small
                       dark
                       :color="getEventColor(selectedEvent)"
                       class="mr-2"
-                    >{{getLabel(selectedEvent)}}</v-chip>
+                      >{{ getLabel(selectedEvent) }}</v-chip
+                    >
                   </div>
                 </v-row>
                 <v-row class="mx-2">
@@ -187,7 +215,9 @@
                 </v-row>
               </v-card-text>
               <v-card-actions>
-                <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                <v-btn text color="secondary" @click="selectedOpen = false"
+                  >Cancel</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-menu>
@@ -261,7 +291,6 @@ export default {
   },
   methods: {
     getData() {
-      
       if (store.tasks) {
         this.events = store.tasks;
         this.events.forEach(event => {
@@ -271,7 +300,7 @@ export default {
         });
         return;
       }
-      
+
       this.loading = true;
       const user = firebase.auth().currentUser;
 

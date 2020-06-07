@@ -1,4 +1,4 @@
 export default {
-    tasks: null,
-    user: null,
-}
+  tasks: null,
+  user: null
+};

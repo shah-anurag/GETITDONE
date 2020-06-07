@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <v-container class="my-5">
-      <v-alert v-if="error" type="error">{{error}}</v-alert>
+      <v-alert v-if="error" type="error">{{ error }}</v-alert>
       <v-card flat max-width="500px" class="mx-auto">
         <v-tabs
           v-model="tab"
@@ -47,7 +47,8 @@
                     class="mr-4 mt-4"
                     :loading="loading_login"
                     @click="signin"
-                  >Login</v-btn>
+                    >Login</v-btn
+                  >
                 </v-form>
               </v-card-text>
             </v-card>
@@ -84,7 +85,11 @@
                   <v-text-field
                     v-model="password_reenter"
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :rules="[rules.required, rules.min, password === password_reenter]"
+                    :rules="[
+                      rules.required,
+                      rules.min,
+                      password === password_reenter
+                    ]"
                     :type="show1 ? 'text' : 'password'"
                     color="deep-purple accent-4"
                     name="input-10-1"
@@ -99,7 +104,8 @@
                     class="mr-4 mt-4"
                     :loading="loading_signup"
                     @click="signup"
-                  >Signup</v-btn>
+                    >Signup</v-btn
+                  >
                 </v-form>
               </v-card-text>
             </v-card>

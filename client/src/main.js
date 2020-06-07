@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
 import vuetify from "./plugins/vuetify";
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import "material-design-icons-iconfont/dist/material-design-icons.css";
 import store from "./store";
 
 firebase.initializeApp({
@@ -19,7 +19,7 @@ firebase.initializeApp({
 
 Vue.config.productionTip = false;
 
-let app = ''
+let app = "";
 /* eslint-disable */
 const ignoreWarnMessage = 'The .native modifier for v-on is only valid on components but it was used on <div>.';
 Vue.config.warnHandler = function (msg, vm, trace) {

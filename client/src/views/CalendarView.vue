@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Calender from "@/components/Calender"
+import Calender from "@/components/Calender";
 
 export default {
   components: {
     Calender
   }
-}
+};
 </script>
