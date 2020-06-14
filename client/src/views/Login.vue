@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <v-container class="my-5">
+      <v-alert type="info">For demo purposes, use email: dummy@gmail.com and password: abc123</v-alert>
       <v-alert v-if="error" type="error">{{ error }}</v-alert>
       <v-card flat max-width="500px" class="mx-auto">
         <v-tabs
